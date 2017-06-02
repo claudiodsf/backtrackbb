@@ -160,11 +160,17 @@ class Trigger():
             self.valid = False
             return
         # check if there is at least a valid pick
-        for pick in self.picks:
-            if pick.valid:
-                self.valid = True
-                return
-        self.valid = False
+        npicks = len(self.picks)
+        nvalid = len([p for p in self.picks if p.valid])
+        if nvalid/npicks >= 0.6:
+            self.valid = True
+        else:
+            self.valid = False
+        # for pick in self.picks:
+        #     if pick.valid:
+        #         self.valid = True
+        #         return
+        # self.valid = False
 
 
 class Pick():

@@ -178,6 +178,10 @@ def _run_btbb(config, st, st_CF, t_begin,
         if stack_grid.max() >= config.trigger:
             do_trigger = True
             trigger_level = config.trigger
+        stg_sum = stack_grid.array[stack_grid.array >= config.trigger].sum()
+        defocusing = stg_sum / stack_grid.array.sum()
+        if defocusing > config.trigger_defocusing:
+            do_trigger = False
     if config.trigger_ellipsoid_max_axis is not None and not do_trigger:
         gp_ell = config.grid_power_ellipsoid
         gp = config.grid_power
